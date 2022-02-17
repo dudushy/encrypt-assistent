@@ -1,7 +1,5 @@
 #imports
-import os
-import math
-import time
+import os, time
 
 #settings
 loadAnimation = True
@@ -121,7 +119,7 @@ def convert():
                 wait(.1)
         if slowMode == True:
             print(f"\nCODE: {code}\nMESSAGE: {msg}")
-            wait(.4)
+            wait(1)
 
         #convert
         if code == "LEET":
