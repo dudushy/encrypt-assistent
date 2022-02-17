@@ -9,50 +9,50 @@ slowMode = False
 codes = ['ZENITPOLAR', 'LEET']
 
 #functions
-def clearScreen():
-    os.system('cls') #'cls' for win | 'clear' for linux
+def clearScreen() -> None:
+    os.system('cls' if os.name == 'nt' else 'clear')
 
-def printAllCodesAvaliable():
+def waitKeyPress() -> None:
+    os.system('pause' if os.name == 'nt' else 'read -s -n 1 -p "Press any key to continue..."\n')
+
+def printAllCodesAvaliable() -> None:
     print("\n= AVALIABLE CODES:")
     for code in codes:
         print(f"-- {code}")
     print("- - - - - - -")
-            
 
-def settings():
+def settings() -> None:
     global loadAnimation
     global slowMode
 
     while True:
         clearScreen()
-        print("-=- -=- -=- -=- -=- -=- -=- -=-"+
-                "\n=======<Enter the number>======="+
-                "\n"+
-                f"\n===> (1) Load Animation [{loadAnimation}]"+
-                "\n"+
-                f"\n===> (2) Slow Mode [{slowMode}]"+
-                "\n"+
-                "\n=======> (3) BACK"+
-                "\n-=- -=- -=- -=- -=- -=- -=- -=-")
-        op = input("\t=> ")
-        if op == "1":
-            if loadAnimation == True:
-                loadAnimation = False
-            else:
-                loadAnimation = True
-        elif op == "2":
-            if slowMode == True:
-                slowMode = False
-            else:
-                slowMode = True
-        elif op == "3":
-            break
-        else:
-            clearScreen()
-            print("-=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=-"+
-                    "\n|      Invalid input, try again.       |"+
-                    "\n-=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=-")
-            input("\n : 'Ok'")
+        print(f"""
+-=- -=- -=- -=- -=- -=- -=- -=-
+=======<Enter the number>=======
+
+===> (1) Load Animation [{loadAnimation}]
+
+===> (2) Slow Mode [{slowMode}]
+
+=======> (3) BACK
+-=- -=- -=- -=- -=- -=- -=- -=-
+""")
+        match input("=> "):
+            case "1":
+                loadAnimation = not loadAnimation
+            case "2":
+                slowMode = not slowMode
+            case "3":
+                return
+            case _ :
+                clearScreen()
+                print("""
+-=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=-
+|      Invalid input, try again.       |
+-=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=-
+""")
+                waitKeyPress()
 
 def wait(secs):
     import time
