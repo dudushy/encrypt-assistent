@@ -15,6 +15,15 @@ def clearScreen() -> None:
 def waitKeyPress() -> None:
     os.system('pause' if os.name == 'nt' else 'read -s -n 1 -p "Press any key to continue..."\n')
 
+def invalidInput() -> None:
+    clearScreen()
+    print("""
+-=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=-
+|      Invalid input, try again.       |
+-=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=-
+""")
+    waitKeyPress()
+
 def printAllCodesAvaliable() -> None:
     print("\n= AVALIABLE CODES:")
     for code in codes:
@@ -46,34 +55,26 @@ def settings() -> None:
             case "3":
                 return
             case _ :
-                clearScreen()
-                print("""
--=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=-
-|      Invalid input, try again.       |
--=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=-
-""")
-                waitKeyPress()
+                invalidInput()
 
-def wait(secs):
-    import time
-    if slowMode == True:
+def wait(secs: int) -> None:
+    if slowMode:
         time.sleep(secs)
 
-def animLoad():
-    import os, time
-    if loadAnimation == True:
+def animLoad() -> None:
+    if loadAnimation:
         load="|/-\|"
         for i in load:
             clearScreen()
             print(f"{i}\n")
             time.sleep(.1)
-            clearScreen()
 
 def convert():
     #loop //how it works
     while True:
         #request //raw data
-        while True:
+        code_msg = ""
+        while not code_msg:
             clearScreen()
             print("Please, enter data following the example:"+
                     "\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _"+
@@ -82,21 +83,18 @@ def convert():
                     "\n- - - - - - - - - - - - - - - - - - - -")
             printAllCodesAvaliable()
             code_msg = input("\n-> MESSAGE: ")
-            if code_msg != "":
-                break
-                clearScreen()
+        clearScreen()
         #filter
         code = ""
         msg = ""
         print(code_msg)
         for j in code_msg:
-            if j != "_":
-                code += j
-                if slowMode == True:
-                    print(f"\n{j}\t===\t{code}")
-                    wait(.1)
-            else:
+            if j == "_":
                 break
+            code += j
+            if slowMode == True:
+                print(f"\n{j}\t===\t{code}")
+                wait(.1)
         for k in range(((len(code)) + 1), len(code_msg)):
             msg += code_msg[k]
             if slowMode == True:
@@ -107,11 +105,11 @@ def convert():
             wait(.4)
 
         #convert
-        if code == "ZENITPOLAR":
-            msg = ZENITPOLAR(f"{msg}")
-        elif code == "LEET":
+        if code == "LEET":
             msg = LEET(f"{msg}")
 
+        elif code == "ZENITPOLAR":
+            msg = ZENITPOLAR(f"{msg}")
         #loading animation
         animLoad()
 
@@ -157,19 +155,13 @@ def menu():
                     "\n|   Are you sure?   |"+
                     "\n-=- -=- -=- -=- -=- -=-")
                 check = input("\n (y/n): ")
-                if check == "y" or "n":
-                    break
             if check == "y":
                 break
         else:
-            clearScreen()
-            print("-=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=-"+
-                    "\n|      Invalid input, try again.       |"+
-                    "\n-=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=-")
-            input("\n : 'Ok'")
+            invalidInput()
 
 ## codes
-def ZENITPOLAR(msg_input):
+def ZENITPOLAR(msg_input):  # sourcery skip: switch, use-assigned-variable
     msg_output = ""         #ZENIT
                             #POLAR
     for i in msg_input:
@@ -220,7 +212,7 @@ def ZENITPOLAR(msg_input):
             msg_output += c
     return msg_output
 
-def LEET(msg_input):
+def LEET(msg_input):  # sourcery skip: use-assigned-variable
     msg_output = ""         #0134567
                             #OIEASGT
     for i in msg_input:
