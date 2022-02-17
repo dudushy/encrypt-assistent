@@ -15,20 +15,8 @@ def printAllCodesAvaliable():
             "\n-- ZENITPOLAR"+
             "\n-- 1337"+
             "\n- - - - - - -")
+            
 #how they incode
-def BINARIO(msg_input):
-    msg_output = ""
-
-    for i in msg_input:
-        c = i
-        if i == "a":
-            msg_output += "b"
-        elif i == "3":
-            msg_output += "a"
-        else:
-            msg_output += c
-    return msg_output
-
 def ZENITPOLAR(msg_input):
     msg_output = ""         #ZENIT
                             #POLAR
