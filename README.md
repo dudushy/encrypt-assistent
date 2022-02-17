@@ -4,5 +4,5 @@
 ---
 
 To do:
-1. ~~Translate to English.~~
-1. Improve algorithm (IFs and WHILEs).
+1. **~~Translate to English.~~**
+1. **Improve algorithm (IFs and WHILEs).**
