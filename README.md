@@ -1,4 +1,8 @@
 # encrypt-assistent
-Program to make secret messages
+*Console App to create/read secret messages.*
+>Made with [Python](https://www.python.org/downloads/)
+---
 
-EncryptoShy
+To do:
+1. **(:heavy_check_mark:)** ~~Translate to English.~~
+1. **(:x:)** Improve algorithm (IFs and WHILEs).

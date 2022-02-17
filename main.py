@@ -259,5 +259,10 @@ def LEET(msg_input):
             msg_output += c.upper()
     return msg_output
 
-clearScreen()
-menu()
+## main
+def main():
+    clearScreen()
+    menu()
+
+if __name__ == "__main__":
+    main()
