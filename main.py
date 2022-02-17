@@ -8,7 +8,39 @@ loadAnimation = True
 slowMode = False
 codes = ['ZENITPOLAR', 'LEET']
 
+#menus
+mainMenu = """
+-=- -=- -=- -=- -=- -=- -=- -=-
+|   Choose a number:    |
+|                       |
+|   1 > Convert         |
+|                       |
+|   2 > Settings        |
+|                       |
+|   3 > EXIT            |
+-=- -=- -=- -=- -=- -=- -=- -=-
+"""
+
+invalidMenu = """
+-=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=-
+|      Invalid input, try again.       |
+-=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=-
+"""
+
 #functions
+def settingsMenu() -> str:
+    return f"""
+-=- -=- -=- -=- -=- -=- -=- -=-
+=======<Enter the number>=======
+
+===> (1) Load Animation [{loadAnimation}]
+
+===> (2) Slow Mode [{slowMode}]
+
+=======> (3) BACK
+-=- -=- -=- -=- -=- -=- -=- -=-
+"""
+
 def clearScreen() -> None:
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -17,11 +49,7 @@ def waitKeyPress() -> None:
 
 def invalidInput() -> None:
     clearScreen()
-    print("""
--=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=-
-|      Invalid input, try again.       |
--=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=-
-""")
+    print(invalidMenu)
     waitKeyPress()
 
 def printAllCodesAvaliable() -> None:
@@ -36,17 +64,7 @@ def settings() -> None:
 
     while True:
         clearScreen()
-        print(f"""
--=- -=- -=- -=- -=- -=- -=- -=-
-=======<Enter the number>=======
-
-===> (1) Load Animation [{loadAnimation}]
-
-===> (2) Slow Mode [{slowMode}]
-
-=======> (3) BACK
--=- -=- -=- -=- -=- -=- -=- -=-
-""")
+        print(settingsMenu())
         match input("=> "):
             case "1":
                 loadAnimation = not loadAnimation
@@ -54,7 +72,7 @@ def settings() -> None:
                 slowMode = not slowMode
             case "3":
                 return
-            case _ :
+            case _:
                 invalidInput()
 
 def wait(secs: int) -> None:
@@ -62,12 +80,11 @@ def wait(secs: int) -> None:
         time.sleep(secs)
 
 def animLoad() -> None:
-    if loadAnimation:
-        load="|/-\|"
-        for i in load:
-            clearScreen()
-            print(f"{i}\n")
-            time.sleep(.1)
+    load = "|/-\|"
+    for i in load:
+        clearScreen()
+        print(f"{i}\n")
+        time.sleep(.1)
 
 def convert():
     #loop //how it works
@@ -84,6 +101,7 @@ def convert():
             printAllCodesAvaliable()
             code_msg = input("\n-> MESSAGE: ")
         clearScreen()
+
         #filter
         code = ""
         msg = ""
@@ -110,8 +128,10 @@ def convert():
 
         elif code == "ZENITPOLAR":
             msg = ZENITPOLAR(f"{msg}")
+        
         #loading animation
-        animLoad()
+        if loadAnimation:
+            animLoad()
 
         #results
         check = ""
@@ -132,33 +152,21 @@ def convert():
 def menu():
     while True:
         clearScreen()
-        print("-=- -=- -=- -=- -=- -=- -=- -=-"+
-                "\n|   Choose a number:    |"+
-                "\n|                       |"+
-                "\n|   1 > Convert         |"+
-                "\n|                       |"+
-                "\n|   2 > Settings        |"+
-                "\n|                       |"+
-                "\n|   3 > EXIT            |"+
-                "\n-=- -=- -=- -=- -=- -=- -=- -=-")
-        op = input("\n : ")
-        if op == "1":
-            convert()
-        elif op == "2":
-            settings()
-        elif op == "3":
-            clearScreen()
-            check = ""
-            while check != "y" or "n":
+        print(mainMenu)
+        match input(" : "):
+            case "1":
+                convert()
+            case "2":
+                settings()
+            case "3":
                 clearScreen()
                 print("-=- -=- -=- -=- -=- -=-"+
                     "\n|   Are you sure?   |"+
                     "\n-=- -=- -=- -=- -=- -=-")
-                check = input("\n (y/n): ")
-            if check == "y":
-                break
-        else:
-            invalidInput()
+                if input(" (y/n): ") == "y":
+                    break
+            case _:
+                invalidInput()
 
 ## codes
 def ZENITPOLAR(msg_input):  # sourcery skip: switch, use-assigned-variable
