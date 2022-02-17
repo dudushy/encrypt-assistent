@@ -10,7 +10,7 @@ codes = ['ZENITPOLAR', 'LEET']
 
 #menus
 mainMenu = """
--=- -=- -=- -=- -=- -=- -=- -=-
+-=- -=- -=- -=- -=- -=- -=-
 |   Choose a number:    |
 |                       |
 |   1 > Convert         |
@@ -18,7 +18,7 @@ mainMenu = """
 |   2 > Settings        |
 |                       |
 |   3 > EXIT            |
--=- -=- -=- -=- -=- -=- -=- -=-
+-=- -=- -=- -=- -=- -=- -=-
 """
 
 invalidMenu = """
@@ -45,7 +45,8 @@ def clearScreen() -> None:
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def waitKeyPress() -> None:
-    os.system('pause' if os.name == 'nt' else 'read -s -n 1 -p "Press any key to continue..."\n')
+    print(": OK")
+    os.system('pause >NUL' if os.name == 'nt' else 'read -s -n 1')
 
 def invalidInput() -> None:
     clearScreen()
