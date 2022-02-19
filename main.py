@@ -4,7 +4,7 @@ import os, time
 #settings
 loadAnimation = True
 slowMode = False
-codes = ['ZENITPOLAR', 'LEET']
+codes = ['ZENIT', 'LEET']
 
 #menus
 mainMenu = """
@@ -125,8 +125,8 @@ def convert():
         if code == "LEET":
             msg = LEET(f"{msg}")
 
-        elif code == "ZENITPOLAR":
-            msg = ZENITPOLAR(f"{msg}")
+        elif code == "ZENIT":
+            msg = ZENIT(f"{msg}")
         
         #loading animation
         if loadAnimation:
@@ -168,100 +168,61 @@ def menu():
                 invalidInput()
 
 ## codes
-def ZENITPOLAR(msg_input):  # sourcery skip: switch, use-assigned-variable
-    msg_output = ""         #ZENIT
-                            #POLAR
-    for i in msg_input:
-        c = i
-        #change to char //lower case
-        if i == "z":
-            msg_output += "p"
-        elif i == "e":
-            msg_output += "o"
-        elif i == "n":
-            msg_output += "l"
-        elif i == "i":
-            msg_output += "a"
-        elif i == "t":
-            msg_output += "r"
-        elif i == "p":
-            msg_output += "z"
-        elif i == "o":
-            msg_output += "e"
-        elif i == "l":
-            msg_output += "n"
-        elif i == "a":
-            msg_output += "i"
-        elif i == "r":
-            msg_output += "t"
-        #upper case
-        elif i == "Z":
-            msg_output += "P"
-        elif i == "E":
-            msg_output += "O"
-        elif i == "N":
-            msg_output += "L"
-        elif i == "I":
-            msg_output += "A"
-        elif i == "T":
-            msg_output += "R"
-        elif i == "P":
-            msg_output += "Z"
-        elif i == "O":
-            msg_output += "E"
-        elif i == "L":
-            msg_output += "N"
-        elif i == "A":
-            msg_output += "I"
-        elif i == "R":
-            msg_output += "T"
+def ZENIT(msg_input:str, slowMode:bool):  # sourcery skip: switch, use-assigned-variable
+    encode = "ZENITzenit"
+    decode = "POLARpolar"
+    msg_output = ""
+
+    for char in msg_input:
+        if char in encode:
+            msg_output += decode[encode.find(char)]
+            if slowMode:
+                print(f"char: {char} // output: {decode[encode.find(char)]}")
+        elif char in decode:
+            msg_output += encode[decode.find(char)]
+            if slowMode:
+                print(f"char: {char} // output: {encode[decode.find(char)]}")
         else:
-            msg_output += c
+            msg_output += char
+            if slowMode:
+                print(f"char: {char} // output: {char}")
     return msg_output
 
-def LEET(msg_input):  # sourcery skip: use-assigned-variable
-    msg_output = ""         #0134567
-                            #OIEASGT
-    for i in msg_input:
-        c = i
-        if i == "0":
-            msg_output += "O"
-        elif i == "1":
-            msg_output += "L"
-        elif i == "3":
-            msg_output += "E"
-        elif i == "4":
-            msg_output += "A"
-        elif i == "7":
-            msg_output += "T"
-        elif i == "o":
-            msg_output += "0"
-        elif i == "l":
-            msg_output += "1"
-        elif i == "e":
-            msg_output += "3"
-        elif i == "a":
-            msg_output += "4"
-        elif i == "t":
-            msg_output += "7"
-        elif i == "O":
-            msg_output += "0"
-        elif i == "L":
-            msg_output += "1"
-        elif i == "E":
-            msg_output += "3"
-        elif i == "A":
-            msg_output += "4"
-        elif i == "T":
-            msg_output += "7"
+
+def LEET(msg_input:str, slowMode:bool):
+    encode = "OIEASGT"
+    decode = "0134567"
+    msg_output = ""
+
+    for char in msg_input:
+        if char.upper() in encode:
+            msg_output += decode[encode.find(char.upper())]
+            if slowMode:
+                print(f"char: {char} // output: {decode[encode.find(char.upper())]}")
+        elif char.upper() in decode:
+            msg_output += encode[decode.find(char.upper())]
+            if slowMode:
+                print(f"char: {char} // output: {encode[decode.find(char.upper())]}")
         else:
-            msg_output += c.upper()
+            msg_output += char
+            if slowMode:
+                print(f"char: {char} // output: {char}")
     return msg_output
 
 ## main
 def main():
-    clearScreen()
-    menu()
+    #clearScreen()
+    #menu()
+    print(ZENIT('teste', True))
+    print(LEET('teste', True))
+    print(ZENIT('banana', False))
+    print(LEET('banana', False))
+    print(ZENIT('aBcDeFgHiJ', False))
+    print(LEET('aBcDeFgHiJ', False))
+    print(ZENIT('abcdef123', False))
+    print(LEET('abcdef123', False))
+    print(ZENIT('rosro', False))
+    print(LEET('73573', False))
 
 if __name__ == "__main__":
     main()
