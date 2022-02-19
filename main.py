@@ -85,7 +85,7 @@ def animLoad() -> None:
         print(f"{i}\n")
         time.sleep(.1)
 
-def convert():
+def convert() -> None:
     #loop //how it works
     while True:
         #request //raw data
@@ -148,7 +148,7 @@ def convert():
         if check == "n":
             break
 
-def menu():
+def menu() -> None:
     while True:
         clearScreen()
         print(mainMenu)
@@ -210,7 +210,7 @@ def LEET(msg_input:str, slowMode:bool):
     return msg_output
 
 ## main
-def main():
+def main() -> None:
     #clearScreen()
     #menu()
     print(ZENIT('teste', True))
