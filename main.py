@@ -57,6 +57,20 @@ def printAllCodesAvaliable() -> None:
         print(f"-- {code}")
     print("- - - - - - -")
 
+def checkCode(codes: list, code: str):
+    return code in codes
+
+def wait(secs: int) -> None:
+    if slowMode:
+        time.sleep(secs)
+
+def animLoad() -> None:
+    load = "|/-\|"
+    for i in load:
+        clearScreen()
+        print(f"{i}\n")
+        time.sleep(.1)
+
 def settings() -> None:
     global loadAnimation
     global slowMode
@@ -73,17 +87,6 @@ def settings() -> None:
                 return
             case _:
                 invalidInput()
-
-def wait(secs: int) -> None:
-    if slowMode:
-        time.sleep(secs)
-
-def animLoad() -> None:
-    load = "|/-\|"
-    for i in load:
-        clearScreen()
-        print(f"{i}\n")
-        time.sleep(.1)
 
 def convert() -> None:
     #loop //how it works
@@ -168,7 +171,7 @@ def menu() -> None:
                 invalidInput()
 
 ## codes
-def ZENIT(msg_input:str, slowMode:bool):  # sourcery skip: switch, use-assigned-variable
+def ZENIT(msg_input:str, slowMode:bool):
     encode = "ZENITzenit"
     decode = "POLARpolar"
     msg_output = ""
@@ -211,18 +214,9 @@ def LEET(msg_input:str, slowMode:bool):
 
 ## main
 def main() -> None:
-    #clearScreen()
-    #menu()
-    print(ZENIT('teste', True))
-    print(LEET('teste', True))
-    print(ZENIT('banana', False))
-    print(LEET('banana', False))
-    print(ZENIT('aBcDeFgHiJ', False))
-    print(LEET('aBcDeFgHiJ', False))
-    print(ZENIT('abcdef123', False))
-    print(LEET('abcdef123', False))
-    print(ZENIT('rosro', False))
-    print(LEET('73573', False))
+    # clearScreen()
+    # menu()
+    pass
 
 if __name__ == "__main__":
     main()
