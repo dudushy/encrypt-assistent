@@ -57,12 +57,8 @@ def printAllAvaliableCodes() -> None:
         print(f"-- {code}")
     print("- - - - - - -")
 
-def checkCode(codes: list, code: str):
+def checkCode(code: str) -> bool:
     return code in codes
-
-def wait(secs: int) -> None:
-    if slowMode:
-        time.sleep(secs)
 
 def animLoad() -> None:
     load = "|/-\|"
@@ -103,7 +99,7 @@ def convert() -> None:
         except Exception:
             invalidInput()
             continue
-        if checkCode(codes, code):
+        if checkCode(code):
             match code:
                 case "ZENIT":
                     if loadAnimation:
@@ -152,7 +148,7 @@ def menu() -> None:
                 invalidInput()
 
 ## codes
-def ZENIT(msg_input:str, slowMode:bool):
+def ZENIT(msg_input:str, slowMode:bool) -> str:
     encode = "ZENITzenit"
     decode = "POLARpolar"
     msg_output = ""
@@ -172,7 +168,7 @@ def ZENIT(msg_input:str, slowMode:bool):
                 print(f"[ZENIT | {msg_input}] char: {char} // output: {char}")
     return msg_output
 
-def LEET(msg_input:str, slowMode:bool):
+def LEET(msg_input:str, slowMode:bool) -> str:
     encode = "OIEASGT"
     decode = "0134567"
     msg_output = ""
