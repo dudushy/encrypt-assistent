@@ -172,7 +172,6 @@ def ZENIT(msg_input:str, slowMode:bool):
                 print(f"[ZENIT | {msg_input}] char: {char} // output: {char}")
     return msg_output
 
-
 def LEET(msg_input:str, slowMode:bool):
     encode = "OIEASGT"
     decode = "0134567"
@@ -193,7 +192,7 @@ def LEET(msg_input:str, slowMode:bool):
                 print(f"[LEET | {msg_input}] char: {char} // output: {char}")
     return msg_output
 
-## main
+# main
 def main() -> None:
     menu()
 
