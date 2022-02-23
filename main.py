@@ -136,7 +136,7 @@ def menu() -> None:
     while True:
         clearScreen()
         print(mainMenu)
-        match input(" : "):
+        match input(">>> "):
             case "1":
                 convert()
             case "2":
