@@ -51,7 +51,7 @@ def invalidInput() -> None:
     print(invalidMenu)
     waitKeyPress()
 
-def printAllCodesAvaliable() -> None:
+def printAllAvaliableCodes() -> None:
     print("\n= AVALIABLE CODES:")
     for code in codes:
         print(f"-- {code}")
@@ -72,13 +72,12 @@ def animLoad() -> None:
         time.sleep(.1)
 
 def settings() -> None:
-    global loadAnimation
-    global slowMode
+    global loadAnimation, slowMode
 
     while True:
         clearScreen()
         print(settingsMenu())
-        match input("=> "):
+        match input(">>> "):
             case "1":
                 loadAnimation = not loadAnimation
             case "2":
@@ -89,67 +88,49 @@ def settings() -> None:
                 invalidInput()
 
 def convert() -> None:
-    #loop //how it works
+    global loadAnimation, slowMode, codes
+
     while True:
-        #request //raw data
-        code_msg = ""
-        while not code_msg:
-            clearScreen()
-            print("Please, enter data following the example:"+
+        clearScreen()
+        print("Please, enter data following the example:"+
                     "\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _"+
                     "\n|  Example:                          |"+
                     "\n|  MESSAGE: LEET_Hello World!        |"+
                     "\n- - - - - - - - - - - - - - - - - - - -")
-            printAllCodesAvaliable()
-            code_msg = input("\n-> MESSAGE: ")
-        clearScreen()
-
-        #filter
-        code = ""
-        msg = ""
-        print(code_msg)
-        for j in code_msg:
-            if j == "_":
-                break
-            code += j
-            if slowMode == True:
-                print(f"\n{j}\t===\t{code}")
-                wait(.1)
-        for k in range(((len(code)) + 1), len(code_msg)):
-            msg += code_msg[k]
-            if slowMode == True:
-                print(f"\n{k}\t===\t{msg}")
-                wait(.1)
-        if slowMode == True:
-            print(f"\nCODE: {code}\nMESSAGE: {msg}")
-            wait(1)
-
-        #convert
-        if code == "LEET":
-            msg = LEET(f"{msg}")
-
-        elif code == "ZENIT":
-            msg = ZENIT(f"{msg}")
-        
-        #loading animation
-        if loadAnimation:
-            animLoad()
-
-        #results
-        check = ""
-        while check != "y" or "n":
-            clearScreen()
-            print("%= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =%"+
-                    f"\n\t\tMessage: [  {msg}  ]\n"+
-                    "\n\t\tRun again?"+
-                    "\n%= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =%")
-            check = input("\n (y/n): ")
-            if check == "y":
-                break
-            if check == "n":
-                break
-        if check == "n":
-            break
+        printAllAvaliableCodes()
+        try:
+            code, msg = input("\n>>> MESSAGE: ").split('_', 1)
+        except Exception:
+            invalidInput()
+            continue
+        if checkCode(codes, code):
+            match code:
+                case "ZENIT":
+                    if loadAnimation:
+                        animLoad()
+                    clearScreen()
+                    print("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _"
+                    + f"\n| Message: [\t{ZENIT(msg, slowMode)}\t]"
+                    + "\n| Run again?"
+                    + "\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _")
+                    match input(">>> (y/n): "):
+                        case "y":
+                            continue
+                        case "n":
+                            break
+                case "LEET":
+                    if loadAnimation:
+                        animLoad()
+                    clearScreen()
+                    print("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _"
+                    + f"\n| Message: [\t{LEET(msg, slowMode)}\t]"
+                    + "\n| Run again?"
+                    + "\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _")
+                    match input(">>> (y/n): "):
+                        case "y":
+                            continue
+                        case "n":
+                            break
 
 def menu() -> None:
     while True:
@@ -165,7 +146,7 @@ def menu() -> None:
                 print("-=- -=- -=- -=- -=- -=-"+
                     "\n|   Are you sure?   |"+
                     "\n-=- -=- -=- -=- -=- -=-")
-                if input(" (y/n): ") == "y":
+                if input(">>> (y/n): ") == "y":
                     break
             case _:
                 invalidInput()
@@ -180,15 +161,15 @@ def ZENIT(msg_input:str, slowMode:bool):
         if char in encode:
             msg_output += decode[encode.find(char)]
             if slowMode:
-                print(f"char: {char} // output: {decode[encode.find(char)]}")
+                print(f"[ZENIT | {msg_input}] char: {char} // output: {decode[encode.find(char)]}")
         elif char in decode:
             msg_output += encode[decode.find(char)]
             if slowMode:
-                print(f"char: {char} // output: {encode[decode.find(char)]}")
+                print(f"[ZENIT | {msg_input}] char: {char} // output: {encode[decode.find(char)]}")
         else:
             msg_output += char
             if slowMode:
-                print(f"char: {char} // output: {char}")
+                print(f"[ZENIT | {msg_input}] char: {char} // output: {char}")
     return msg_output
 
 
@@ -201,22 +182,20 @@ def LEET(msg_input:str, slowMode:bool):
         if char.upper() in encode:
             msg_output += decode[encode.find(char.upper())]
             if slowMode:
-                print(f"char: {char} // output: {decode[encode.find(char.upper())]}")
+                print(f"[LEET | {msg_input}] char: {char} // output: {decode[encode.find(char.upper())]}")
         elif char.upper() in decode:
             msg_output += encode[decode.find(char.upper())]
             if slowMode:
-                print(f"char: {char} // output: {encode[decode.find(char.upper())]}")
+                print(f"[LEET | {msg_input}] char: {char} // output: {encode[decode.find(char.upper())]}")
         else:
             msg_output += char
             if slowMode:
-                print(f"char: {char} // output: {char}")
+                print(f"[LEET | {msg_input}] char: {char} // output: {char}")
     return msg_output
 
 ## main
 def main() -> None:
-    # clearScreen()
-    # menu()
-    pass
+    menu()
 
 if __name__ == "__main__":
     main()
