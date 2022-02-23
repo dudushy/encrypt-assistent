@@ -43,7 +43,7 @@ def clearScreen() -> None:
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def waitKeyPress() -> None:
-    print(": OK")
+    print(">>> OK")
     os.system('pause >NUL' if os.name == 'nt' else 'read -s -n 1')
 
 def invalidInput() -> None:
