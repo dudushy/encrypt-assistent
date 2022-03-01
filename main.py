@@ -79,7 +79,7 @@ def settings() -> None:
             case "2":
                 slowMode = not slowMode
             case "3":
-                return
+                break
             case _:
                 invalidInput()
 
